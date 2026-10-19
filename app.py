@@ -432,9 +432,12 @@ def show_home():
           <div class="content-title">Ready to check a fruit bunch?</div>
           <div class="content-subtitle">Start with one clear JPG, JPEG, or PNG image. The app will show the predicted ripeness and confidence.</div>
         </div>""")
-        if st.button("Start prediction  →", width="stretch", key="home_start"):
-            st.session_state.nav_page = "Prediction"
-            st.rerun()
+        st.button(
+    "Start prediction  →",
+    width="stretch",
+    key="home_start_prediction",
+    on_click=lambda: setattr(st.session_state, "nav_page", "Prediction")
+)
     with right:
         sample = get_sample_image()
         st.html('<div class="content-card"><div class="content-title">Example image</div><div class="content-subtitle">An image from your existing dataset, if the local dataset folder is available.</div></div>')
