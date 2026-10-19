@@ -398,13 +398,18 @@ def show_prediction_result():
         width="stretch",
     )
     st.html("""<div class="notice">Research note: the mask target was generated from existing bounding-box annotations, so this overlay is a box-derived pseudo-mask prediction, not a manually annotated polygon segmentation result. The available training images also contain one annotated bunch per image, so count estimates should be interpreted cautiously.</div>""")
-    if st.button("↻ Analyze another image", width="stretch", key="another_image"):
-        st.session_state.current_result = None
-        st.session_state.current_image = None
-        st.session_state.current_filename = None
-        st.session_state.current_time = None
-        st.session_state.nav_page = "Prediction"
+    
+if st.button("🔍 Analyze FFB image", width="stretch", key="prediction_analyze"):
+    st.write("Button clicked! Starting prediction...")
+
+    success = run_prediction(uploaded_file)
+
+    if success:
+        st.success("Prediction finished! Loading results...")
         st.rerun()
+    else:
+        st.error("Prediction failed. Check the technical error details above.")
+
 
 
 def show_home():
